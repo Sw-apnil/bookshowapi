@@ -3,40 +3,38 @@ import cors from "cors";
 import "dotenv/config";
 import { clerkMiddleware } from "@clerk/express";
 import { serve } from "inngest/express";
-import { inngest, functions } from "./inngest/index.js";
-import connectDB from "./configs/db.js";
-// import showRouter from "./routes/showRoutes.js";
-// import bookingRouter from "./routes/bookingRoutes.js";
-// import adminRouter from "./routes/adminRoutes.js";
-// import userRouter from "./routes/userRoutes.js";
-// import { stripeWebhooks } from "./controllers/stripeWebhooks.js";
+import { inngest, functions } from "../inngest/index.js";
+import connectDB from "../configs/db.js";
 
 const app = express();
-const port = 3000;
 
-await connectDB();
-// Stripe Web hooks
-// app.use(
-//   "/api/stripe",
-//   express.raw({ type: "application/json" }),
-//   stripeWebhooks
-// );
+// ⚠️ IMPORTANT: cache DB connection
+let isConnected = false;
 
-//Middleware
+const initDB = async () => {
+  if (!isConnected) {
+    await connectDB();
+    isConnected = true;
+  }
+};
+
 app.use(express.json());
 app.use(cors());
 app.use(clerkMiddleware());
 
+app.get("/", async (req, res) => {
+  await initDB();
+  res.send("Server is live on Vercel 🚀");
+});
 
-// API Routes
-app.get("/", (req, res) => res.send("Server is live!!!"));
-app.use("/api/inngest", serve({ client: inngest, functions }));
-
-// app.use("/api/show", showRouter);
-// app.use("/api/booking", bookingRouter);
-// app.use("/api/admin", adminRouter);
-// app.use("/api/user", userRouter);
-
-app.listen(port, () =>
-  console.log(`Server is running at http://localhost:${port}`)
+app.use(
+  "/api/inngest",
+  async (req, res, next) => {
+    await initDB();
+    next();
+  },
+  serve({ client: inngest, functions })
 );
+
+// ❌ NO app.listen
+export default app;
