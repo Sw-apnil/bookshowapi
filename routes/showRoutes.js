@@ -6,7 +6,7 @@ import {
   getShows,
 } from "../controllers/showController.js";
 import { protectAdmin } from "../middleware/auth.js";
-import { protectAdmin } from "../middleware/auth.js";
+
 
 const showRouter = express.Router();
 
