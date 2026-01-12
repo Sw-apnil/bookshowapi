@@ -50,7 +50,6 @@ export const addShow = async (req, res) => {
       const movieCreditsData = movieCreditsResponse.data;
 
       const movieDetails = {
-        // tmdbId: movieId,
         _id: movieId,
         title: movieApiData.title,
         overview: movieApiData.overview,
