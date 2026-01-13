@@ -2,7 +2,7 @@ import axios from "axios";
 import Show from "../models/Show.js";
 import Booking from "../models/Booking.js";
 import stripe from "stripe";
-//import { inngest } from "../inngest/index.js";
+import { inngest } from "../inngest/index.js";
 
 // function to check availability of selected seats for a movie
 const checkSeatsAvailability = async (showId, selectedSeats) => {

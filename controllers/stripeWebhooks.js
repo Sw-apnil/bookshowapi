@@ -31,13 +31,13 @@ export const stripeWebhooks = async (request, response) => {
           paymentLink: "",
         });
 
-        // //Send confirmation mail
-        // await inngest.send({
-        //   name: "app/show.booked",
-        //   data: {
-        //     bookingId,
-        //   },
-        // });
+        //Send confirmation mail
+        await inngest.send({
+          name: "app/show.booked",
+          data: {
+            bookingId,
+          },
+        });
         break;
       }
       default:
