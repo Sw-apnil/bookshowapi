@@ -30,6 +30,7 @@ export const stripeWebhooks = async (request, response) => {
           isPaid: true,
           paymentLink: "",
         });
+        
 
         //Send confirmation mail
         await inngest.send({
