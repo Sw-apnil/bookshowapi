@@ -9,7 +9,7 @@ import showRouter from "./routes/showRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import userRouter from "./routes/userRoutes.js";
-// import { stripeWebhooks } from "./controllers/stripeWebhooks.js";
+import { stripeWebhooks } from "./controllers/stripeWebhooks.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,12 +17,12 @@ const port = process.env.PORT || 3000;
 
 
 await connectDB();
-// Stripe Web hooks
-// app.use(
-//   "/api/stripe",
-//   express.raw({ type: "application/json" }),
-//   stripeWebhooks
-// );
+//Stripe Web hooks
+app.use(
+  "/api/stripe",
+  express.raw({ type: "application/json" }),
+  stripeWebhooks
+);
 
 //Middleware
 app.use(express.json());
