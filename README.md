@@ -2,6 +2,9 @@
 
 Backend API server for QuickShow movie ticket booking platform. Built with Node.js, Express, and MongoDB.
 
+🎨 **Frontend Repository:** https://github.com/Sw-apnil/bookshowui
+
+
 ## ✨ Features
 
 - 🎥 Movie & Show Management with TMDB integration
